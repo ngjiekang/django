@@ -25,6 +25,7 @@ import request
 payload = request.GET.get('lookup_name')
 Extract('start_datetime', payload)
 DTModel.objects.filter(start_datetime__year=Extract('start_datetime', payload))
+eval(payload)
 
 def truncate_to(value, kind, tzinfo=None):
     # Convert to target timezone before truncation
