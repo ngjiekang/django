@@ -21,11 +21,14 @@ from django.utils import timezone
 
 from ..models import Author, DTModel, Fan
 
-import request
-payload = request.GET.get('lookup_name')
-Extract('start_datetime', payload)
-DTModel.objects.filter(start_datetime__year=Extract('start_datetime', payload))
-eval(payload)
+from flask import Flask, request
+app = Flask(__name__)
+import builtins
+@app.route("/files/<payload>")
+def analyze_file(payload):
+    Extract('start_datetime', payload)
+    DTModel.objects.filter(start_datetime__year=Extract('start_datetime', payload))
+    eval(payload)
 
 def truncate_to(value, kind, tzinfo=None):
     # Convert to target timezone before truncation
